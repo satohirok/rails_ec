@@ -14,7 +14,8 @@ development:
 test:
   <<: *default
   database: myapp_test
-#
+
+# 本番DB
 production:
   <<: *default
   database: myapp_production
