@@ -1,9 +1,6 @@
 FROM node:14.17.6 as node
 FROM ruby:3.2.1
 
-#Herokuへデプロイ
-ENV RAILS_ENV=production
-
 COPY --from=node /opt/yarn-* /opt/yarn
 COPY --from=node /usr/local/bin/node /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
