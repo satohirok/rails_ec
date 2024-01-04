@@ -62,12 +62,13 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <!-- <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
-                            <%= image_tag item.image, class: "card-img-top",height:"200", width: "100", alt: "..." %>
+                            
+                            <%= link_to image_tag(item.image,class: "card-img-top",height:"200", width: "100", alt: "..."), item %>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"><%= item.name %></h5>
+                                    <h5 class="fw-bolder"><%= link_to item.name, item %></h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>

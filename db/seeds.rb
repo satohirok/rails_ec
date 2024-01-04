@@ -11,12 +11,22 @@
 # item.image.attach(io: File.open(Rails.root.join('app/assets/images/test1.jpg')))
 # item.save!
 
-4.times do |n|
-  item = Item.create!(
-    item_id: "test#{n + 1}",
-    name: "test#{n + 1}",
-    price: 101 + n ,
-    description: "test#{n + 1}",
-    image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("app/assets/images/test#{n + 1}.jpg")), filename: "test#{n + 1}.jpg")
-    )
-end
+# 4.times do |n|
+#   item = Item.create!(
+#     item_id: "test#{n + 1}",
+#     name: "test#{n + 1}",
+#     price: 101 + n ,
+#     description: "test#{n + 1}",
+#     image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("app/assets/images/test#{n + 1}.jpg")), filename: "test#{n + 1}.jpg")
+#     )
+# end
+
+
+
+Item.create!(
+    item_id: "latest_item",
+    name: "最新商品",
+    price: 1000,
+    description: "こちら最新の商品になります",
+    image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("app/assets/images/test5.jpg")), filename: "test5.jpg")
+)
