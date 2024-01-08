@@ -1,5 +1,6 @@
 class Admin::ProductsController < ApplicationController
   def new
+    @item = Item.new
   end
 
   def edit

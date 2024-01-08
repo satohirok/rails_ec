@@ -8,9 +8,16 @@ class ItemsController < ApplicationController
     @latest_item = Item.order(created_at: :desc).all.where.not(item_id: @item.item_id)
   end
 
-  def new
+  def create
+    @item = Item.new(item_params)
+    @item.save!
   end
 
   def edit
+  end
+
+  private
+  def item_params
+    params.require(:item).permit(:item_id,:name,:price,:desription,:image)
   end
 end
