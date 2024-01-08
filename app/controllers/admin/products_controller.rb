@@ -4,6 +4,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def index

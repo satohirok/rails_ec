@@ -25,7 +25,7 @@
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-              <a class="btn btn-outline-dark mt-auto" href="#">編集</a>
+              <%= link_to("編集",edit_admin_product_path(item),{class: "btn btn-outline-dark mt-auto"}) %>
               <a class="btn btn-outline-dark mt-auto" href="#">削除</a>
             </div>
         </div>
