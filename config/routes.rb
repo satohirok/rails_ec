@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :products
+  end
   root to: 'items#index'
   resources :items 
   resources :tasks
