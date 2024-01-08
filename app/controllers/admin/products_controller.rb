@@ -1,4 +1,6 @@
 class Admin::ProductsController < ApplicationController
+  http_basic_authenticate_with name: "admin", password: "pw"
+  
   def new
     @item = Item.new
   end
