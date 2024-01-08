@@ -1,13 +1,13 @@
 class ItemsController < ApplicationController
   http_basic_authenticate_with name: "admin", password: "pw", only: [:create, :update, :destroy]
-  
+
   def index
     @items = Item.all
   end
 
   def show
     @item = Item.find(params[:id])
-    @latest_item = Item.order(created_at: :desc).all.where.not(item_id: @item.item_id)
+    @latest_item = Item.order(updated_at: :desc).all.where.not(item_id: @item.item_id)
   end
 
   def create
