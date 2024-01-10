@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   class Admin::ProductsController < ApplicationController
     http_basic_authenticate_with name: 'admin', password: 'pw'
