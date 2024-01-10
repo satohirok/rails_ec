@@ -1,6 +1,6 @@
 class Admin::ProductsController < ApplicationController
-  http_basic_authenticate_with name: "admin", password: "pw"
-  
+  http_basic_authenticate_with name: 'admin', password: 'pw'
+
   def new
     @item = Item.new
   end
@@ -32,7 +32,8 @@ class Admin::ProductsController < ApplicationController
   end
 
   private
+
   def item_params
-    params.require(:item).permit(:item_id,:name,:price,:description,:image)
+    params.require(:item).permit(:item_id, :name, :price, :description, :image)
   end
 end
