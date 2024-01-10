@@ -1,6 +1,6 @@
 <div class="container px-4 px-lg-5">
   <h1>商品作成(管理者)</h1>
-  <%= form_with model: @item do |f| %>
+  <%= form_with model: @item, url: admin_products_path ,local: true  do |f| %>
     <div class="form-group">
       <%= f.label :id %>
       <%= f.text_field :item_id, class: 'form-control'%>

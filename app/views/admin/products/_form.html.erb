@@ -29,7 +29,7 @@
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="d-flex justify-content-center">
               <%= link_to("編集",edit_admin_product_path(item),{class: "btn btn-outline-dark me-2"}) %>
-              <%= button_to "削除", item,method: :delete,data: { turbo_confirm: "「#{item.name}」を削除してもよろしいですか」" },class: "btn btn-outline-dark mt-auto" %>
+              <%= button_to "削除", admin_product_path(item) ,method: :delete,data: { turbo_confirm: "「#{item.name}」を削除してもよろしいですか」" },class: "btn btn-outline-dark mt-auto" %>
             </div>
         </div>
     </div>
