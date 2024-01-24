@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
   before_action :total_amount
   def index
@@ -10,6 +12,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def total_amount
     @total = ItemCart.where(cart_id: current_cart.id).sum(:amount)
   end
