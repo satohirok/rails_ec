@@ -24,10 +24,14 @@
                 <%= item.price %>円
             </div>
         </div>
+
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">カートに追加</a></div>
+            <div class="text-center"> 
+                <%= link_to 'カートに追加', add_item_path(params: { item_id: item.id,amount: 1 }), data: { "turbo-method": :post }, class: "btn btn-outline-dark mt-auto" %> 
+            </div>
         </div>
     </div>
 </div>
 <% end %>
+
