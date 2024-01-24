@@ -14,6 +14,7 @@ module Admin
 
     def index
       @items = Item.all
+      @total = ItemCart.where(cart_id: current_cart.id).sum(:amount)
     end
 
     def create
