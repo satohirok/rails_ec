@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  post '/add_item', to: 'carts#add_item', as: 'add_item'
-
   namespace :admin do
     resources :products
   end

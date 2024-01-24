@@ -19,7 +19,7 @@
             <span><%= @item.price %> 円</span>
           </div>
           <p class="lead"><%= @item.description %></p>
-          <%= form_with model: @cart_item, url:add_item_path(params: {item_id: @item.id}),local: true  do |f| %>
+          <%= form_with model: @cart_item, url:carts_path(params: {item_id: @item.id}),local: true  do |f| %>
             <div class="d-flex">
               <%= f.select :amount,[["購入数量:1", 1], ["購入数量:2", "2"], ["購入数量:3", "3"], ["購入数量:4", "4"],["購入数量:5","5"]], { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
               <%= f.submit 'カートに追加', class: 'btn btn-outline-dark'%>

@@ -16,12 +16,12 @@ class CartsController < ApplicationController
     redirect_to carts_path
   end
 
-  def add_item
+  def create
     @item_cart ||= current_cart.item_carts.build(item_id: params[:item_id]) if @item_cart.blank?
     @item_cart.amount ||= 0
     @item_cart.amount += params[:amount].to_i
     if @item_cart.save
-      redirect_to root_path, notice: 'カートに商品を追加しました'
+      redirect_to root_path
     else
       redirect_to admin_products_path
     end
