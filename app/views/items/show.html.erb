@@ -1,68 +1,67 @@
     <body>
-        <!-- Navigation(共通化)-->
-        <!-- Product section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6">
-                      <!-- <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /> -->
-                      <% if @item.image.attached? %> 
-                      <%= image_tag @item.image,class: "card-img-top mb-5 mb-md-0", alt: "..." %>
-                      <% else %>
-                      <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> 
-                      <% end %>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="small mb-1"><%= @item.item_id %></div>
-                        <h1 class="display-5 fw-bolder"><%= @item.name %></h1>
-                        <div class="fs-5 mb-5">
-                            <span><%= @item.price %> 円</span>
-                        </div>
-                        <p class="lead"><%= @item.description %></p>
-
-                        <%= form_with model: @cart_item, url:add_item_path(params: {item_id: @item.id}),local: true  do |f| %>
-                            <div class="d-flex">
-                                <%= f.select :amount,[["購入数量:1", 1], ["購入数量:2", "2"], ["購入数量:3", "3"], ["購入数量:4", "4"],["購入数量:5","5"]], { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
-                                <%= f.submit 'カートに追加', class: 'btn btn-outline-dark'%>
-                            </div>
-                        <% end %>
-                    </div>
-                </div>
+  <!-- Navigation(共通化)-->
+  <!-- Product section-->
+  <section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+      <div class="row gx-4 gx-lg-5 align-items-center">
+        <div class="col-md-6">
+          <!-- <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /> -->
+          <% if @item.image.attached? %>
+            <%= image_tag @item.image,class: "card-img-top mb-5 mb-md-0", alt: "..." %>
+          <% else %>
+            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+          <% end %>
+        </div>
+        <div class="col-md-6">
+          <div class="small mb-1"><%= @item.item_id %></div>
+          <h1 class="display-5 fw-bolder"><%= @item.name %></h1>
+          <div class="fs-5 mb-5">
+            <span><%= @item.price %> 円</span>
+          </div>
+          <p class="lead"><%= @item.description %></p>
+          <%= form_with model: @cart_item, url:add_item_path(params: {item_id: @item.id}),local: true  do |f| %>
+            <div class="d-flex">
+              <%= f.select :amount,[["購入数量:1", 1], ["購入数量:2", "2"], ["購入数量:3", "3"], ["購入数量:4", "4"],["購入数量:5","5"]], { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+              <%= f.submit 'カートに追加', class: 'btn btn-outline-dark'%>
             </div>
-        </section>
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">最新商品</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                      <% @latest_item.limit(1).each do |item| %>
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <% if item.image.attached? %>
-                            <%= link_to image_tag(item.image,class: "card-img-top",height:"200", width: "100", alt: "..."), item %>
-                            <% else %>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <% end %>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder"><%= item.name %></h5>
-                                    <!-- Product price-->
-                                    <%= item.price %> 円
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                  <%= link_to("確認する",item,{class: "btn btn-outline-dark mt-auto"}) %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Related items section-->
+  <section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+      <h2 class="fw-bolder mb-4">最新商品</h2>
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="col mb-5">
+          <% @latest_item.limit(1).each do |item| %>
+            <div class="card h-100">
+              <!-- Product image-->
+              <% if item.image.attached? %>
+                <%= link_to image_tag(item.image,class: "card-img-top",height:"200", width: "100", alt: "..."), item %>
+              <% else %>
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+              <% end %>
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder"><%= item.name %></h5>
+                  <!-- Product price-->
+                  <%= item.price %> 円
                 </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <%= link_to("確認する",item,{class: "btn btn-outline-dark mt-auto"}) %>
+                </div>
+              </div>
             </div>
-        </section>
-    </body>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</body>
