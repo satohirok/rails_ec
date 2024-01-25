@@ -5,9 +5,10 @@ class CartsController < ApplicationController
   before_action :current_cart
 
   def index
-    @total = ItemCart.where(cart_id: @current_cart.id).sum(:amount)
+    # @total = ItemCart.where(cart_id: @current_cart.id).sum(:amount)
+    @total = Cart.total(@current_cart)
     @items = Item.includes(:item_carts).where(item_carts: { cart_id: @current_cart.id })
-    @total_price = total_price(@current_cart)
+    @total_price = Cart.total_price(@current_cart)
   end
 
   def destroy
@@ -31,9 +32,5 @@ class CartsController < ApplicationController
 
   def set_cart_item
     @item_cart = current_cart.item_carts.find_by(item_id: params[:item_id])
-  end
-
-  def total_price(cart)
-    cart.item_carts.includes(:item).sum { |item_cart| item_cart.amount * item_cart.item.price }
   end
 end
