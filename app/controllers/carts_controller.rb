@@ -5,7 +5,6 @@ class CartsController < ApplicationController
   before_action :current_cart
 
   def index
-    # @total = ItemCart.where(cart_id: @current_cart.id).sum(:amount)
     @total = Cart.total(@current_cart)
     @items = Item.includes(:item_carts).where(item_carts: { cart_id: @current_cart.id })
     @total_price = Cart.total_price(@current_cart)
