@@ -14,7 +14,5 @@ class ApplicationController < ActionController::Base
     @current_cart ||= Cart.create
     # 上記で作成されたcart_idをセッション情報に保持
     session[:cart_id] = @current_cart.id
-    # 上記で作成されたsession情報に紐づくcart_idを返す
-    @current_cart
   end
 end
