@@ -5,7 +5,7 @@ class Cart < ApplicationRecord
   has_many :items, through: :item_carts
 
   def total_price
-    ItemCart.includes(:item).sum { |item_cart| item_cart.amount * item_cart.item.price }
+    ItemCart.includes(:item).where(cart_id: id).sum { |item_cart| item_cart.amount * item_cart.item.price }
   end
 
   def total
