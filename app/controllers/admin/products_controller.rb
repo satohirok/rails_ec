@@ -3,6 +3,7 @@
 module Admin
   class ProductsController < ApplicationController
     http_basic_authenticate_with name: 'admin', password: 'pw'
+    before_action :current_cart
 
     def new
       @item = Item.new
@@ -14,7 +15,7 @@ module Admin
 
     def index
       @items = Item.all
-      @total = ItemCart.where(cart_id: current_cart.id).sum(:amount)
+      @total = @current_cart.item_carts.sum(:amount)
     end
 
     def create
