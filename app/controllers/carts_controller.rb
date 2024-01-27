@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  before_action :set_cart_item
   before_action :current_cart
-
+  before_action :set_cart_item
+  
   def index
-    @total = Cart.total(@current_cart)
-    @items = Item.includes(:item_carts).where(item_carts: { cart_id: @current_cart.id })
-    @total_price = Cart.total_price(@current_cart)
+    @total = @current_cart.total
+    @items = @current_cart.items.includes(:item_carts)
+    @total_price = @current_cart.total_price
   end
 
   def destroy
@@ -30,6 +30,6 @@ class CartsController < ApplicationController
   private
 
   def set_cart_item
-    @item_cart = current_cart.item_carts.find_by(item_id: params[:item_id])
+    @item_cart = @current_cart.item_carts.find_by(item_id: params[:item_id])
   end
 end
