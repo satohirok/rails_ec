@@ -4,7 +4,7 @@ module Admin
   class ProductsController < ApplicationController
     http_basic_authenticate_with name: 'admin', password: 'pw'
     before_action :current_cart
-    before_action :total_amount, only: [:index,:new,:edit]
+    before_action :total_amount, only: %i[index new edit]
 
     def new
       @item = Item.new
@@ -16,7 +16,6 @@ module Admin
 
     def index
       @items = Item.all
-      
     end
 
     def create

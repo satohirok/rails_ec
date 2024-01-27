@@ -3,7 +3,7 @@
 class CartsController < ApplicationController
   before_action :current_cart
   before_action :set_cart_item
-  
+
   def index
     @total = @current_cart.total
     @items = @current_cart.items.includes(:item_carts)
