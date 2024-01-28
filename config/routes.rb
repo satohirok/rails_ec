@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     resources :products
   end
   root to: 'items#index'
-  resources :items, except: %i[create update destroy]
+  resources :items
+  resources :carts
+  resources :item_carts
+
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

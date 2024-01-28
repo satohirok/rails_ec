@@ -3,6 +3,8 @@
 module Admin
   class ProductsController < ApplicationController
     http_basic_authenticate_with name: 'admin', password: 'pw'
+    before_action :current_cart
+    before_action :total_amount, only: %i[index new edit]
 
     def new
       @item = Item.new
@@ -38,6 +40,10 @@ module Admin
 
     def item_params
       params.require(:item).permit(:item_id, :name, :price, :description, :image)
+    end
+
+    def total_amount
+      @total = @current_cart.item_carts.sum(:amount)
     end
   end
 end
