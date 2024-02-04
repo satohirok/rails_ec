@@ -1,2 +1,61 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container px-4 px-lg-5">
+<h1>購入者明細(詳細)</h1>
+  <main class="container">
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h6 class="border-bottom pb-2 mb-0">購入者情報</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">氏名</th>
+            <th scope="col">ユーザー名</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">住所1</th>
+            <th scope="col">住所2</th>
+            <th scope="col">国名</th>
+            <th scope="col">地域</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @bill.last_name%> <%= @bill.first_name %></td>
+            <td><%= @bill.user_name %></td>
+            <td><%= @bill.email %></td>
+            <td><%= @bill.main_address %></td>
+            <td><%= @bill.sub_address %></td>
+            <td><%= @bill.country %></td>
+            <td><%= @bill.region %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h6 class="border-bottom pb-2 mb-0">購入商品</h6>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">購入商品</th>
+              <th scope="col">商品価格</th>
+              <th scope="col">数量</th>
+              <th scope="col">小計</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @order_items.each_with_index do |o, i| %>
+            <tr>
+              <th scope="row"><%= i + 1 %></th>
+              <td><%= o.item_id%> : <%= o.item_name %></td>
+              <td><%= o.item_price %> 円</td>
+              <td><%= o.item_amount %></td>
+              <td><%= o.item_total_price %> 円</td>
+            </tr>
+          <% end %>
+          </tbody>
+       </table>
+       <h3>合計: <%= @total_price %> 円</h3>
+    </div>
+  </main>
+</div>
+
+

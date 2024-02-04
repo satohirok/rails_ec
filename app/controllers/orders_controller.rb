@@ -2,9 +2,13 @@ class OrdersController < ApplicationController
   before_action :current_cart
 
   def index
+    @bill = Bill.all
   end
 
   def show
+    @bill = Bill.find(params[:id])
+    @order_items = Order.where(bill_id: @bill.id)
+    @total_price = @order_items.sum(:item_total_price)
   end
 
   def new
