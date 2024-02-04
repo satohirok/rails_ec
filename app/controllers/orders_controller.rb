@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :current_cart
+  before_action :total_amount, only: [:index, :show]
 
   def index
     @bill = Bill.all
@@ -49,5 +50,9 @@ class OrdersController < ApplicationController
 
   def bill_params
     params.permit(:last_name, :first_name, :user_name, :email, :main_address, :sub_address, :country, :region, :zip_code,:credit_name, :credit_number, :credit_valid, :cvv)
+  end
+
+  def total_amount
+    @total = @current_cart.item_carts.sum(:amount)
   end
 end
