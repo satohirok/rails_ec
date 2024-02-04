@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  http_basic_authenticate_with name: 'admin', password: 'pw'
   before_action :current_cart
   before_action :total_amount, only: [:index, :show]
 
