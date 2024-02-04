@@ -110,6 +110,9 @@
         <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
       </symbol>
     </svg>
+    <% if flash[:notice] %>
+          <div class="alert alert-danger text-center"><%= notice %></div>
+        <% end %>
     <div class="container">
       <main>
         <div class="py-5 text-center">
@@ -126,21 +129,21 @@
               </span>
             </h4>
             <ul class="list-group mb-3">
-              <% @items.each do |item| %>
-                <li class="list-group-item justify-content-between lh-sm">
-                  <div class="mb-2">
-                    <h5 class="my-0">
-                      <small><%= item.item_id %></small>:<%= item.name %>
-                    </h5>
-                  </div>
-                  <span class="text-body-secondary">
-                    <% item.item_carts.each do |item_cart| %>
-                      <%= item.price%>円 x <%= item_cart.amount%> 点 計 <%= item_cart.amount * item.price %>円
-                      <%= button_to '削除', cart_path(item_cart) ,method: :delete,data: { turbo_confirm: "「#{item.name}」をカートから削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
-                    <% end %>
-                  </span>
-                </li>
-              <% end %>
+                <% @items.each do |item| %>
+                  <li class="list-group-item justify-content-between lh-sm">
+                    <div class="mb-2">
+                      <h5 class="my-0">
+                        <small><%= item.item_id %></small>:<%= item.name %>
+                      </h5>
+                    </div>
+                    <span class="text-body-secondary">
+                      <% item.item_carts.each do |item_cart| %>
+                        <%= item.price%>円 x <%= item_cart.amount%> 点 計 <%= item_cart.amount * item.price %>円
+                        <%= button_to '削除', cart_path(item_cart) ,method: :delete,data: { turbo_confirm: "「#{item.name}」をカートから削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
+                      <% end %>
+                    </span>
+                  </li>
+                <% end %>
               <li class="list-group-item d-flex justify-content-between">
                 <span>合計 (円)</span>
                 <strong><%= @total_price %>円</strong>
@@ -155,7 +158,7 @@
           </div>
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">請求先住所</h4>
-            <%=form_with model: @bill, url: orders_path, method: :post, class: 'needs-validation'  do |f| %>
+            <%=form_with model: @bill, url: orders_path, class: 'needs-validation'  do |f| %>
               <div class="row g-3">
                 <div class="col-sm-6">
                   <%= f.label :'姓', class: "form-label"%>
@@ -191,7 +194,7 @@
                 </div>
                 <div class="col-12">
                   <%=f.label :'住所1',class: 'form-label'%>
-                  <%=f.text_field :main_adress,class: 'form-control',placeholder: '1234 Main St'%>
+                  <%=f.text_field :main_address,class: 'form-control',placeholder: '1234 Main St'%>
                   <div class="invalid-feedback">
                     Please enter your shipping address.
                   </div>
@@ -199,7 +202,7 @@
                 <div class="col-12">
                   <%=f.label :'住所2',class: 'form-label'%>
                   <span class="text-body-secondary">(任意)</span>
-                  <%=f.text_field :sub_adress,class: 'form-control'%>
+                  <%=f.text_field :sub_address,class: 'form-control'%>
                 </div>
                 <div class="col-md-5">
                   <%=f.label :'国名',class: 'form-label'%>
@@ -244,7 +247,6 @@
                 <div class="col-md-6">
                   <%=f.label :'有効期限',class: 'form-label'%>
                 <div class="form-control">
-
                    <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true) %>
                 </div>
                 </div>
@@ -257,8 +259,8 @@
                 </div>
               </div>
               <hr class="my-4">
-              <%= f.submit '購入する', class: 'w-100 btn btn-primary btn-lg' %>
-            <% end %>
+            <%= f.submit '購入する', class: 'w-100 btn btn-primary btn-lg' %>
+          <% end %>
           </div>
         </div>
       </main>
