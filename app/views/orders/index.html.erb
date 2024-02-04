@@ -17,7 +17,7 @@
         <td><%= o.created_at.strftime('%Y/%m/%d')%></td>
         <td><%= o.user_name %></td>
         <td><%= o.region %></td>
-        <td><%= link_to '詳細',order_path(o) %></td>
+        <td><%= link_to '詳細',order_path(o) , class: "btn btn-outline-dark mt-auto" %></td>
       </tr>
     <% end %>
     </tbody>
