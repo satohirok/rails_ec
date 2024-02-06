@@ -36,8 +36,14 @@ class OrdersController < ApplicationController
         order.save
       end
 
+
+
       @item_carts = @current_cart.item_carts
       @item_carts.delete_all
+
+      # 購入明細を記載email宛に送信
+      @order = Order.where(bill_id: @bill.id)
+      CheckoutMailer.confirm_mail(@bill,@order).deliver
 
       flash[:notice] = '購入ありがとうございます'
       redirect_to root_path
