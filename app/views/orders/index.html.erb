@@ -11,15 +11,15 @@
       </tr>
     </thead>
     <tbody>
-    <% @bill.each_with_index do |o, i| %>
-      <tr>
-        <th scope="row"><%= i + 1 %></th>
-        <td><%= o.created_at.strftime('%Y/%m/%d')%></td>
-        <td><%= o.user_name %></td>
-        <td><%= o.region %></td>
-        <td><%= link_to '詳細',order_path(o) , class: "btn btn-outline-dark mt-auto" %></td>
-      </tr>
-    <% end %>
+      <% @bill.each_with_index do |o, i| %>
+        <tr>
+          <th scope="row"><%= i + 1 %></th>
+          <td><%= o.created_at.strftime('%Y/%m/%d')%></td>
+          <td><%= o.user_name %></td>
+          <td><%= o.region %></td>
+          <td><%= link_to '詳細',order_path(o) , class: "btn btn-outline-dark mt-auto" %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
- </div> 
+</div>
