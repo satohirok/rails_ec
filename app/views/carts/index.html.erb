@@ -111,8 +111,8 @@
       </symbol>
     </svg>
     <% if flash[:notice] %>
-          <div class="alert alert-danger text-center"><%= notice %></div>
-        <% end %>
+      <div class="alert alert-danger text-center"><%= notice %></div>
+    <% end %>
     <div class="container">
       <main>
         <div class="py-5 text-center">
@@ -129,21 +129,21 @@
               </span>
             </h4>
             <ul class="list-group mb-3">
-                <% @items.each do |item| %>
-                  <li class="list-group-item justify-content-between lh-sm">
-                    <div class="mb-2">
-                      <h5 class="my-0">
-                        <small><%= item.item_id %></small>:<%= item.name %>
-                      </h5>
-                    </div>
-                    <span class="text-body-secondary">
-                      <% item.item_carts.each do |item_cart| %>
-                        <%= item.price%>円 x <%= item_cart.amount%> 点 計 <%= item_cart.amount * item.price %>円
-                        <%= button_to '削除', cart_path(item_cart) ,method: :delete,data: { turbo_confirm: "「#{item.name}」をカートから削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
-                      <% end %>
-                    </span>
-                  </li>
-                <% end %>
+              <% @items.each do |item| %>
+                <li class="list-group-item justify-content-between lh-sm">
+                  <div class="mb-2">
+                    <h5 class="my-0">
+                      <small><%= item.item_id %></small>:<%= item.name %>
+                    </h5>
+                  </div>
+                  <span class="text-body-secondary">
+                    <% item.item_carts.each do |item_cart| %>
+                      <%= item.price%>円 x <%= item_cart.amount%> 点 計 <%= item_cart.amount * item.price %>円
+                      <%= button_to '削除', cart_path(item_cart) ,method: :delete,data: { turbo_confirm: "「#{item.name}」をカートから削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
+                    <% end %>
+                  </span>
+                </li>
+              <% end %>
               <li class="list-group-item d-flex justify-content-between">
                 <span>合計 (円)</span>
                 <strong><%= @total_price %>円</strong>
@@ -246,9 +246,9 @@
                 </div>
                 <div class="col-md-6">
                   <%=f.label :'有効期限',class: 'form-label'%>
-                <div class="form-control">
-                   <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true) %>
-                </div>
+                  <div class="form-control">
+                    <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true) %>
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <%=f.label :'セキュリティコード',class: 'form-label'%>
@@ -259,8 +259,8 @@
                 </div>
               </div>
               <hr class="my-4">
-            <%= f.submit '購入する', class: 'w-100 btn btn-primary btn-lg' %>
-          <% end %>
+              <%= f.submit '購入する', class: 'w-100 btn btn-primary btn-lg' %>
+            <% end %>
           </div>
         </div>
       </main>

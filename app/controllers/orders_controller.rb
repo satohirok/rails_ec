@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   http_basic_authenticate_with name: 'admin', password: 'pw'
   before_action :current_cart
-  before_action :total_amount, only: [:index, :show]
+  before_action :total_amount, only: %i[index show]
 
   def index
     @bill = Bill.all
@@ -19,10 +21,11 @@ class OrdersController < ApplicationController
 
   def create
     @bill = Bill.new(bill_params)
-    @order_item= Item.joins(:item_carts).select("items.item_id, items.name, items.price, item_carts.amount").where("item_carts.cart_id = ?", @current_cart.id)
-    
-    if @current_cart.item_carts.present?
-      @bill.save
+    @order_item = Item.joins(:item_carts).select('items.item_id, items.name, items.price, item_carts.amount').where(
+      'item_carts.cart_id = ?', @current_cart.id
+    )
+
+    if @bill.save && @current_cart.item_carts.present?
 
       @order_item.each do |item|
         order = Order.new(
@@ -31,24 +34,21 @@ class OrdersController < ApplicationController
           item_price: item.price,
           item_amount: item.amount,
           item_total_price: item.price * item.amount,
-          bill: @bill  # 紐付ける
+          bill: @bill # 紐付ける
         )
         order.save
       end
-
-
 
       @item_carts = @current_cart.item_carts
       @item_carts.delete_all
 
       # 購入明細を記載email宛に送信
       @order = Order.where(bill_id: @bill.id)
-      CheckoutMailer.confirm_mail(@bill,@order).deliver
+      CheckoutMailer.confirm_mail(@bill, @order).deliver
 
       flash[:notice] = '購入ありがとうございます'
       redirect_to root_path
     else
-      flash[:notice] = 'カートに商品を追加してください' 
       redirect_to carts_path
     end
   end
@@ -56,7 +56,8 @@ class OrdersController < ApplicationController
   private
 
   def bill_params
-    params.permit(:last_name, :first_name, :user_name, :email, :main_address, :sub_address, :country, :region, :zip_code,:credit_name, :credit_number, :credit_valid, :cvv)
+    params.permit(:last_name, :first_name, :user_name, :email, :main_address, :sub_address, :country, :region,
+                  :zip_code, :credit_name, :credit_number, :credit_valid, :cvv)
   end
 
   def total_amount
