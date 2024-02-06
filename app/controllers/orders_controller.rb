@@ -20,32 +20,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @bill = Bill.new(bill_params)
-    @order_item = Item.joins(:item_carts).select('items.item_id, items.name, items.price, item_carts.amount').where(
-      'item_carts.cart_id = ?', @current_cart.id
-    )
-
-    if @bill.save && @current_cart.item_carts.present?
-
-      @order_item.each do |item|
-        order = Order.new(
-          item_id: item.item_id,
-          item_name: item.name,
-          item_price: item.price,
-          item_amount: item.amount,
-          item_total_price: item.price * item.amount,
-          bill: @bill # 紐付ける
-        )
-        order.save
-      end
-
-      @item_carts = @current_cart.item_carts
-      @item_carts.delete_all
-
-      # 購入明細を記載email宛に送信
-      @order = Order.where(bill_id: @bill.id)
-      CheckoutMailer.confirm_mail(@bill, @order).deliver
-
+    if Order.check_out(@current_cart, bill_params)
       flash[:notice] = '購入ありがとうございます'
       redirect_to root_path
     else
