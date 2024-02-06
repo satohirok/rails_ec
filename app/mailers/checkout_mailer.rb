@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CheckoutMailer < ApplicationMailer
   default from: 'notifications@example.com'
 
-  def confirm_mail(bill,order)
+  def confirm_mail(bill, order)
     @bill = bill
     @order = order
     @total_price = @order.sum(:item_total_price)
