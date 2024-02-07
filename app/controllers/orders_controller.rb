@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def show
     @bill = Bill.find(params[:id])
-    @order_items = Order.where(bill_id: @bill.id)
+    @order_items = @bill.orders
     @total_price = @order_items.sum(:item_total_price)
   end
 
