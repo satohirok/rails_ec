@@ -10,7 +10,7 @@ class Order < ApplicationRecord
     order_items = Item.joins(:item_carts).select('items.item_id, items.name, items.price, item_carts.amount').where(
       'item_carts.cart_id = ?', cart.id
     )
-    
+
     ActiveRecord::Base.transaction do
       order_items.each do |item|
         order = Order.new(
@@ -24,7 +24,7 @@ class Order < ApplicationRecord
         order.save
       end
     end
-    
+
     CheckoutMailer.confirm_mail(bill, bill.orders).deliver
 
     true

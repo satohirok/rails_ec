@@ -20,11 +20,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-      
     if Cart.check_cart_blank(@current_cart)
       flash[:notice] = 'カートに商品を追加してください'
       redirect_to carts_path
-    elsif  Order.check_out(@current_cart, bill_params) 
+    elsif Order.check_out(@current_cart, bill_params)
       Cart.delete_cart_item(@current_cart)
       flash[:notice] = '購入ありがとうございます'
       redirect_to root_path
