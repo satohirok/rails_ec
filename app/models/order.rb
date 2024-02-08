@@ -4,8 +4,6 @@ class Order < ApplicationRecord
   belongs_to :bill
 
   def self.check_out(cart, bill_params)
-    return false if cart.item_carts.blank?
-
     bill = Bill.new(bill_params)
     return false unless bill.save
 
@@ -24,9 +22,7 @@ class Order < ApplicationRecord
       )
       order.save
     end
-
-    cart.item_carts.delete_all
-
+    
     CheckoutMailer.confirm_mail(bill, bill.orders).deliver
 
     true

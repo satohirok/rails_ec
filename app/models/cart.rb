@@ -11,4 +11,12 @@ class Cart < ApplicationRecord
   def total
     ItemCart.where(cart_id: id).sum(:amount)
   end
+
+  def self.check_cart_blank(current_cart)
+    current_cart.item_carts.blank?
+  end
+
+  def self.delete_cart_item(current_cart)
+    current_cart.item_carts.delete_all
+  end
 end
