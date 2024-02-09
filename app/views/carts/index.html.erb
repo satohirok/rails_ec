@@ -110,40 +110,9 @@
         <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
       </symbol>
     </svg>
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
+    <% if flash[:notice] %>
+      <div class="alert alert-danger text-center"><%= notice %></div>
+    <% end %>
     <div class="container">
       <main>
         <div class="py-5 text-center">
@@ -189,132 +158,109 @@
           </div>
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">請求先住所</h4>
-            <form class="needs-validation" novalidate>
+            <%=form_with model: @bill, url: orders_path, class: 'needs-validation'  do |f| %>
               <div class="row g-3">
                 <div class="col-sm-6">
-                  <label for="firstName" class="form-label">姓</label>
-                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                  <%= f.label :'姓', class: "form-label"%>
+                  <%= f.text_field :last_name, class: 'form-control'%>
                   <div class="invalid-feedback">
-                    Valid first name is required.
+                    Valid first last name is required.
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <label for="lastName" class="form-label">名</label>
-                  <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                  <%= f.label :'名', class: "form-label"%>
+                  <%= f.text_field :first_name, class: 'form-control'%>
                   <div class="invalid-feedback">
-                    Valid last name is required.
+                    Valid name is required.
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="username" class="form-label">ユーザー名</label>
+                  <%=f.label :'ユーザー名', class: "form-label"%>
                   <div class="input-group has-validation">
                     <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                    <%=f.text_field :user_name, class: 'form-control',placeholder: 'Username'%>
                     <div class="invalid-feedback">
                       Your username is required.
                     </div>
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="email" class="form-label">メールアドレス <span class="text-body-secondary">(任意)</span></label>
-                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                  <%=f.label :"メールアドレス",class: "form-label" %>
+                  <span class="text-body-secondary">(任意)</span>
+                  <%=f.text_field :email, class: 'form-control', placeholder: 'you@example.com'%>
                   <div class="invalid-feedback">
                     Please enter a valid email address for shipping updates.
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="address" class="form-label">住所1</label>
-                  <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                  <%=f.label :'住所1',class: 'form-label'%>
+                  <%=f.text_field :main_address,class: 'form-control',placeholder: '1234 Main St'%>
                   <div class="invalid-feedback">
                     Please enter your shipping address.
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="address2" class="form-label">住所2<span class="text-body-secondary">(任意)</span></label>
-                  <input type="text" class="form-control" id="address2" placeholder="">
+                  <%=f.label :'住所2',class: 'form-label'%>
+                  <span class="text-body-secondary">(任意)</span>
+                  <%=f.text_field :sub_address,class: 'form-control'%>
                 </div>
                 <div class="col-md-5">
-                  <label for="country" class="form-label">国名</label>
-                  <select class="form-select" id="country" required>
-                    <option value="">選択してください</option>
-                    <option>日本</option>
-                    <option>アメリカ合衆国</option>
-                    <option>中国</option>
-                    <option>韓国</option>
-                    <option>フランス</option>
-                    <option>ドイツ</option>
-                    <option>イギリス</option>
-                  </select>
+                  <%=f.label :'国名',class: 'form-label'%>
+                  <%= f.text_field :country, class: 'form-control'%>
                   <div class="invalid-feedback">
                     Please select a valid country.
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <label for="state" class="form-label">地域</label>
-                  <select class="form-select" id="state" required>
-                    <option value="">選択してください</option>
-                    <option>東京</option>
-                    <option>カリフォルニア</option>
-                    <option>北京</option>
-                    <option>ソウル</option>
-                  </select>
+                  <%=f.label :'地域',class: 'form-label'%>
+                  <%=f.text_field :region,class: 'form-control'%>
                   <div class="invalid-feedback">
                     Please provide a valid state.
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <label for="zip" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="zip" placeholder="" required>
+                  <%=f.label :'郵便番号',class: 'form-label'%>
+                  <%=f.text_field :zip_code, class: 'form-control'%>
                   <div class="invalid-feedback">
                     Zip code required.
                   </div>
                 </div>
               </div>
               <hr class="my-4">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="same-address">
-                <label class="form-check-label" for="same-address">請求先の住所は配送先の住所と同一です。</label>
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="save-info">
-                <label class="form-check-label" for="save-info">今回の購入情報を次回購入時も使用する。</label>
-              </div>
-              <hr class="my-4">
               <h4 class="mb-3">クレジットカード情報</h4>
               <div class="row gy-3">
                 <div class="col-md-6">
-                  <label for="cc-name" class="form-label">お名前</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                  <%=f.label :'お名前',class: 'form-label'%>
+                  <%=f.text_field :credit_name, class: 'form-control' %>
                   <small class="text-body-secondary">カードに記載されたご自身のお名前</small>
                   <div class="invalid-feedback">
                     Name on card is required
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="cc-number" class="form-label">カード番号</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                  <%=f.label :'カード番号',class: 'form-label'%>
+                  <%=f.text_field :credit_number, class: 'form-control'%>
                   <div class="invalid-feedback">
                     Credit card number is required
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <label for="cc-expiration" class="form-label">有効期限</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Expiration date required
+                <div class="col-md-6">
+                  <%=f.label :'有効期限',class: 'form-label'%>
+                  <div class="form-control">
+                    <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true) %>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <label for="cc-cvv" class="form-label">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                <div class="col-md-4">
+                  <%=f.label :'セキュリティコード',class: 'form-label'%>
+                  <%=f.text_field :cvv, class: 'form-control'%>
                   <div class="invalid-feedback">
                     Security code required
                   </div>
                 </div>
               </div>
               <hr class="my-4">
-              <button class="w-100 btn btn-primary btn-lg" type="submit">購入する</button>
-            </form>
+              <%= f.submit '購入する', class: 'w-100 btn btn-primary btn-lg' %>
+            <% end %>
           </div>
         </div>
       </main>

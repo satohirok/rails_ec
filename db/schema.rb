@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_14_054153) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_03_085325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_054153) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bills", force: :cascade do |t|
+    t.string "last_name"
+    t.string "first_name"
+    t.string "user_name"
+    t.string "email"
+    t.string "main_address"
+    t.string "sub_address"
+    t.string "country"
+    t.string "region"
+    t.integer "zip_code"
+    t.string "credit_name"
+    t.integer "credit_number"
+    t.date "credit_valid"
+    t.integer "cvv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,6 +84,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_054153) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "item_id"
+    t.string "item_name"
+    t.integer "item_price"
+    t.integer "item_amount"
+    t.integer "item_total_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "bill_id"
+    t.index ["bill_id"], name: "index_orders_on_bill_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -78,4 +108,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_054153) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "item_carts", "carts"
   add_foreign_key "item_carts", "items"
+  add_foreign_key "orders", "bills"
 end
