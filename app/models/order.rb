@@ -22,10 +22,8 @@ class Order < ApplicationRecord
         )
         order.save!
       end
+      CheckoutMailer.confirm_mail(bill, bill.orders).deliver
+      true
     end
-
-    CheckoutMailer.confirm_mail(bill, bill.orders).deliver
-
-    true
   end
 end
