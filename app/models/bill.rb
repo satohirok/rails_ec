@@ -2,5 +2,4 @@
 
 class Bill < ApplicationRecord
   has_many :orders, dependent: :destroy
-  has_one : :bill
 end
