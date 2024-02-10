@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_003745) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_10_021201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,6 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_003745) do
     t.boolean "applied"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "bill_id"
+    t.index ["bill_id"], name: "index_promotions_on_bill_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -117,4 +119,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_003745) do
   add_foreign_key "item_carts", "carts"
   add_foreign_key "item_carts", "items"
   add_foreign_key "orders", "bills"
+  add_foreign_key "promotions", "bills"
 end
