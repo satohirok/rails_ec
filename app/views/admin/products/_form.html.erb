@@ -1,0 +1,37 @@
+<% items.each do |item| %>
+  <div class="col mb-5">
+    <div class="card h-100">
+      <!-- Product image-->
+      <!-- <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+      <% if item.image.attached? %>
+        <%= link_to image_tag(item.image,class: "card-img-top",height:"200", width: "100", alt: "..."), item %>
+      <% else %>
+        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+      <% end %>
+      <!-- Product details-->
+      <div class="card-body p-4">
+        <div class="text-center">
+          <!-- Product name-->
+          <h5 class="fw-bolder"><%= link_to item.name, item %></h5>
+          <!-- Product reviews-->
+          <div class="d-flex justify-content-center small text-warning mb-2">
+            <div class="bi-star-fill"></div>
+            <div class="bi-star-fill"></div>
+            <div class="bi-star-fill"></div>
+            <div class="bi-star-fill"></div>
+            <div class="bi-star-fill"></div>
+          </div>
+          <!-- Product price-->
+          <%= item.price %>円
+        </div>
+      </div>
+      <!-- Product actions-->
+      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        <div class="d-flex justify-content-center">
+          <%= link_to("編集",edit_admin_product_path(item),{class: "btn btn-outline-dark me-2"}) %>
+          <%= button_to "削除", admin_product_path(item) ,method: :delete,data: { turbo_confirm: "「#{item.name}」を削除してもよろしいですか」" },class: "btn btn-outline-dark mt-auto" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

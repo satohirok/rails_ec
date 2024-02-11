@@ -1,0 +1,2 @@
+class AppliedPromotion < ApplicationRecord
+end
