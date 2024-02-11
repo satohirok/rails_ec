@@ -99,7 +99,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_003745) do
   create_table "promotions", force: :cascade do |t|
     t.string "code"
     t.integer "discount_rate"
-    t.boolean "applied", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
