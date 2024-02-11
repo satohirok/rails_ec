@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_225316) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_11_052834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,15 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_225316) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "applied_promotions", force: :cascade do |t|
-    t.string "applied_code"
-    t.integer "applied_discount_rate"
-    t.bigint "bill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bill_id"], name: "index_applied_promotions_on_bill_id"
   end
 
   create_table "bills", force: :cascade do |t|
@@ -110,8 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_225316) do
     t.integer "discount_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "bill_id"
-    t.index ["bill_id"], name: "index_promotions_on_bill_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -124,9 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_225316) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "applied_promotions", "bills"
   add_foreign_key "item_carts", "carts"
   add_foreign_key "item_carts", "items"
   add_foreign_key "orders", "bills"
-  add_foreign_key "promotions", "bills"
 end
