@@ -3,7 +3,7 @@
 class Order < ApplicationRecord
   belongs_to :bill
 
-  def self.check_out(cart, bill_params)
+  def self.check_out(cart, bill_params, current_promotion)
     ActiveRecord::Base.transaction do
       bill = Bill.new(bill_params)
       return false unless bill.save
@@ -22,7 +22,17 @@ class Order < ApplicationRecord
         )
         order.save!
       end
-      CheckoutMailer.confirm_mail(bill, bill.orders).deliver
+      
+      if current_promotion != nil
+        apply = Apply.new(
+          applied_code: current_promotion.code,
+          applied_discount_rate: current_promotion.discount_rate,
+          bill:
+        )
+        apply.save!
+      end
+ 
+      CheckoutMailer.confirm_mail(bill,bill.orders).deliver
       true
     end
   end
