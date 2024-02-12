@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   def show
     @bill = Bill.find(params[:id])
     @order_items = @bill.orders
+    @apply = @bill.apply
     @total_price = @order_items.sum(:item_total_price)
   end
 
@@ -24,7 +25,7 @@ class OrdersController < ApplicationController
     if @current_cart.check_blank?
       flash[:notice] = 'カートに商品を追加してください'
       redirect_to carts_path
-    elsif Order.check_out(@current_cart, bill_params)
+    elsif Order.check_out(@current_cart, bill_params, @current_promotion)
       @current_cart.delete_cart_item
       Promotion.delete_applied_promotion(@current_promotion) if @current_promotion != nil
       flash[:notice] = '購入ありがとうございます'
