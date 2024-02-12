@@ -52,14 +52,14 @@
           <% end %>
         </tbody>
       </table>
-    <% if @apply != nil %>
-      <h6 class="border-bottom pb-2 mb-0 mb-2">プロモーションコード適用値引き</h6>
-      <p>コード:<%= @apply.applied_code %></p>
-      <p>値引き額: <%= @apply.applied_discount_rate %> 円</p>
-    </div>
-    <h3>合計: <%= @total_price - @apply.applied_discount_rate %> 円(割引適用)</h3>
+      <% if @apply != nil %>
+        <h6 class="border-bottom pb-2 mb-0 mb-2">プロモーションコード適用値引き</h6>
+        <p>コード:<%= @apply.applied_code %></p>
+        <p>値引き額: <%= @apply.applied_discount_rate %> 円</p>
+      </div>
+      <h3>合計: <%= @total_price - @apply.applied_discount_rate %> 円(割引適用)</h3>
     <% else %>
-    <h3>合計: <%= @total_price %> 円</h3>
+      <h3>合計: <%= @total_price %> 円</h3>
     <% end %>
     <%= link_to '戻る', orders_path , class: "btn btn-outline-dark mt-auto"%>
   </main>

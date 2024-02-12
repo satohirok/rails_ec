@@ -146,13 +146,13 @@
               <% end %>
               <% if applied? %>
                 <li class="list-group-item justify-content-between lh-sm">
-                    <div class="mb-2">
-                      プロモーションコード
-                      <h5 class="my-0">
-                        <small><%= @current_promotion.code %></small>:<%=@current_promotion.discount_rate %> 円割引
-                      </h5>
-                      <%= button_to '削除', promotion_path(@current_promotion) ,method: :delete,data: { turbo_confirm: "「#{@current_promotion.code}」を削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
-                    </div>
+                  <div class="mb-2">
+                    プロモーションコード
+                    <h5 class="my-0">
+                      <small><%= @current_promotion.code %></small>:<%=@current_promotion.discount_rate %> 円割引
+                    </h5>
+                    <%= button_to '削除', promotion_path(@current_promotion) ,method: :delete,data: { turbo_confirm: "「#{@current_promotion.code}」を削除してもよろしいですか」" },class: "btn btn-outline-dark mt-2" %>
+                  </div>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>合計 (円)</span>
@@ -167,8 +167,8 @@
             </ul>
             <%= form_with model: @promotion, url: promotions_path, method: :post, class: 'card p-2' do |f| %>
               <div class="input-group">
-                 <%= f.text_field :code ,class: "form-control",placeholder: "Promo code"%>
-                 <%= f.submit '適用する',class: "btn btn-secondary"%>
+                <%= f.text_field :code ,class: "form-control",placeholder: "Promo code"%>
+                <%= f.submit '適用する',class: "btn btn-secondary"%>
               </div>
             <% end %>
           </div>
