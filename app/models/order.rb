@@ -8,14 +8,14 @@ class Order < ApplicationRecord
       bill = Bill.new(bill_params)
       return false unless bill.save
 
-      create_order_items(cart,bill)
-      apply_and_confirm_mail(bill,current_promotion)
+      create_order_items(cart, bill)
+      apply_and_confirm_mail(bill, current_promotion)
 
       true
     end
   end
 
-  def self.create_order_items(cart,bill)
+  def self.create_order_items(cart, bill)
     order_items = Item.joins(:item_carts).select('items.item_id, items.name, items.price, item_carts.amount').where(
       'item_carts.cart_id = ?', cart.id
     )
@@ -26,13 +26,13 @@ class Order < ApplicationRecord
         item_price: item.price,
         item_amount: item.amount,
         item_total_price: item.price * item.amount,
-        bill: bill
+        bill:
       )
       order.save!
     end
   end
 
-  def self.apply_and_confirm_mail(bill,current_promotion)
+  def self.apply_and_confirm_mail(bill, current_promotion)
     if !current_promotion.nil?
       apply = Apply.new(
         applied_code: current_promotion.code,
@@ -46,5 +46,4 @@ class Order < ApplicationRecord
     end
     true
   end
- 
 end
