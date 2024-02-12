@@ -30,10 +30,13 @@ class Order < ApplicationRecord
           bill:
         )
         apply.save!
+        CheckoutMailer.confirm_mail(bill,bill.orders,bill.apply).deliver
+        true
+      else
+        CheckoutMailer.confirm_mail(bill,bill.orders).deliver
+        true
       end
- 
-      CheckoutMailer.confirm_mail(bill,bill.orders).deliver
-      true
+      
     end
   end
 end

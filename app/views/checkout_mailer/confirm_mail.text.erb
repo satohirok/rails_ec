@@ -11,6 +11,16 @@
     <%= o.item_id%>:<%= o.item_name %> <%= o.item_price %> 円  <%= o.item_amount %> 点  小計:<%=o.item_total_price %> 円
   <% end %>
 
-  合計:<%= @total_price %> 円
+  <% if @promotion != nil %>
+  【プロモーションコード適用割引】
+    コード:<%= @promotion.applied_code%>
+    値引き額: <%= @promotion.applied_discount_rate%> 円
+   
+  【合計金額】
+   <%= @total_price - @promotion.applied_discount_rate %> 円(割引適用)
+  <% else %>
+  【合計金額】
+  <%= @total_price %> 円
+  <% end %>
 
   今後とも STショップ をよろしくお願いいたします。
