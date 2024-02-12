@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
       redirect_to carts_path
     elsif Order.check_out(@current_cart, bill_params, @current_promotion)
       @current_cart.delete_cart_item
-      Promotion.delete_applied_promotion(@current_promotion) if @current_promotion != nil
+      Promotion.delete_applied_promotion(@current_promotion) unless @current_promotion.nil?
       flash[:notice] = '購入ありがとうございます'
       redirect_to root_path
     else

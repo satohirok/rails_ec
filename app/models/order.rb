@@ -22,21 +22,19 @@ class Order < ApplicationRecord
         )
         order.save!
       end
-      
-      if current_promotion != nil
+
+      if !current_promotion.nil?
         apply = Apply.new(
           applied_code: current_promotion.code,
           applied_discount_rate: current_promotion.discount_rate,
           bill:
         )
         apply.save!
-        CheckoutMailer.confirm_mail(bill,bill.orders,bill.apply).deliver
-        true
+        CheckoutMailer.confirm_mail(bill, bill.orders, bill.apply).deliver
       else
-        CheckoutMailer.confirm_mail(bill,bill.orders).deliver
-        true
+        CheckoutMailer.confirm_mail(bill, bill.orders).deliver
       end
-      
+      true
     end
   end
 end

@@ -8,7 +8,7 @@ class CartsController < ApplicationController
   def index
     @total = @current_cart.total
     @items = Item.includes(:item_carts).where(item_carts: { cart_id: @current_cart.id })
-    @total_price = @current_cart.total_price 
+    @total_price = @current_cart.total_price
   end
 
   def destroy
