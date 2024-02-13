@@ -161,7 +161,7 @@
               <% else %>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>合計 (円)</span>
-                  <strong><%= @total_price %>円(割引なし)</strong>
+                  <strong><%= @total_price %>円</strong>
                 </li>
               <% end %>
             </ul>
@@ -255,7 +255,7 @@
                 </div>
                 <div class="col-md-6">
                   <%=f.label :'カード番号',class: 'form-label'%>
-                  <%=f.text_field :credit_number, class: 'form-control'%>
+                  <%=f.text_field :credit_number, class: 'form-control',placeholder: '1111 1111 1111 1111'%>
                   <div class="invalid-feedback">
                     Credit card number is required
                   </div>
@@ -263,12 +263,12 @@
                 <div class="col-md-6">
                   <%=f.label :'有効期限',class: 'form-label'%>
                   <div class="form-control">
-                    <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true) %>
+                    <%= f.date_select(:credit_valid,use_month_numbers: true,date_separator: '/',discard_day: true,class: "border-0") %>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <%=f.label :'セキュリティコード',class: 'form-label'%>
-                  <%=f.text_field :cvv, class: 'form-control'%>
+                  <%=f.text_field :cvv, class: 'form-control',placeholder: '123'%>
                   <div class="invalid-feedback">
                     Security code required
                   </div>
