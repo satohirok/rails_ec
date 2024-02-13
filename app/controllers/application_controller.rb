@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  helper_method :current_cart
+  helper_method :current_cart, :current_promotion
+  include PromotionsHelper
 
   # session情報に紐づくcart_idをメソッド化
   # application_controllerに記述することで全てのコントローラーから呼び出せるようにする

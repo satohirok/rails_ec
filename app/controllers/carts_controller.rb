@@ -2,6 +2,7 @@
 
 class CartsController < ApplicationController
   before_action :current_cart
+  before_action :current_promotion
   before_action :set_cart_item
 
   def index

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :carts
   resources :item_carts
   resources :orders
+  resources :promotions
 
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
